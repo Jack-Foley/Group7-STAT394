@@ -8,7 +8,7 @@ Jack Foley
   - ORCID: 0000-0002-6370-2267
      
 Hunter Stent 
-  - Email: stenthunt@my-vuw.ac.nz
+  - Email: stenthunt@myvuw.ac.nz 
   - ORCID: N/A
 
 Yiyang Chen 
