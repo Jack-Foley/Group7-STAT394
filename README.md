@@ -14,3 +14,7 @@ Hunter Stent
 Yiyang Chen 
   - Email: chenyiya@myvuw.ac.nz
   - ORCID: 0000-0002-5211-1234
+
+## Meeting Attendance 
+
+Attendance for Week Ended Aug 5: Jack, Hunter, Yiyang
