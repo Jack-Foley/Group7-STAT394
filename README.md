@@ -17,4 +17,4 @@ Yiyang Chen
 
 ## Meeting Attendance 
 
-Attendance for Week Ended Aug 5: Jack, Hunter, Yiyang
+Attendance for week ended *Aug 5*: Jack, Hunter, Yiyang
