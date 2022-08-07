@@ -9,7 +9,7 @@ Jack Foley
      
 Hunter Stent 
   - Email: stenthunt@myvuw.ac.nz 
-  - ORCID: N/A
+  - ORCID: 0000-0001-5118-0409
 
 Yiyang Chen 
   - Email: chenyiya@myvuw.ac.nz
