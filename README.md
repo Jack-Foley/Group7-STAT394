@@ -15,7 +15,7 @@ Yiyang Chen
   - Email: chenyiya@myvuw.ac.nz
   - ORCID: 0000-0002-5211-1234
 
-# Meeting Attendance 
+### Meeting Attendance 
 
 Attendance for week ended *Aug 5*: Jack, Hunter, Yiyang
 
@@ -29,7 +29,7 @@ This dataset was chosen (i.e. our motivation) as it provides a novel oppertunity
 
 Our preliminary goal at this stage is to explore how the pairing of rock type of rainfall may drive the observed variation in lake surface temperature and pH. 
 
-# Meeting Attendance 
+### Meeting Attendance 
 
 Attendance for week ended *Aug 12*: Jack, Hunter, Yiyang
 
