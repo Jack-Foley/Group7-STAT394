@@ -132,7 +132,7 @@ ggplot(taslakes.df, aes(x=pH, y=Elev, color=Dolerite)) +
 
 ```{r Figure3, Figure3,out.width = "550px"}
 PCA <- prcomp(df.stretch, center=TRUE, scale=TRUE)
-plot(PCA, type="l", main= "Cumulative Variance Explained by Principal Components")
+plot(PCA, type="l", main= "Variance Explained by Principal Components")
 ```
 
 ```{r}
