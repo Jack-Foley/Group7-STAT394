@@ -1,0 +1,161 @@
+---
+title: "Group 7: Tasmanian Lakes Dataset"
+author: "Jack Foley, Yiyang Chen, Hunter Stent"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(warn=-1)
+library(readxl)
+library(ggplot2)
+library(GGally)
+library(rgl)
+library(png) 
+library(tidyverse)
+library(kableExtra)
+```
+
+
+```{r, echo=FALSE}
+taslakes.data <- data.frame(read_excel("../../DATA/EXCEL/Tasmania_lakes_recoded.xlsx", sheet = 2))
+```
+
+```{r echo=FALSE, include=FALSE}
+GlaSed <- factor(taslakes.data$GlaSed)
+Scrub <- factor(taslakes.data$Scrub)
+Felsic <- factor(taslakes.data$Felsic)
+Dolerite <- factor(taslakes.data$Dolerite)
+Elev <- taslakes.data$Elev
+Depth <- taslakes.data$Depth
+pH <- taslakes.data$pH
+Twater <- taslakes.data$Twater
+Precip <- taslakes.data$Precip
+Turbid <- taslakes.data$Turbid
+Lake_Area <- taslakes.data$Lake_Area
+Lake <- taslakes.data$Lake
+
+
+
+taslakes.df <- data.frame(taslakes.data$Lake, taslakes.data$Elev, taslakes.data$Depth, taslakes.data$pH, taslakes.data$Twater, taslakes.data$Precip, taslakes.data$Turbid, GlaSed, Scrub, Felsic, Dolerite, taslakes.data$Lake_Area)
+
+
+levels(taslakes.df$Felsic) <- c("Not Felsic", "Felsic", "Felsic")
+levels(taslakes.df$Dolerite) <- c("Not Dolerite", "Dolerite")
+```
+
+```{r}
+stretch <- function(x) { return(2*range01(x)-1) }
+Elevation <- stretch(Elev)
+Depth <- stretch(Depth)
+pH <- stretch(pH)
+Twater <- stretch(Twater)
+Precipitation <- stretch(Precip)
+Turbidity <- stretch(Turbid)
+LakeArea <- stretch(Lake_Area)
+
+df.stretch <- data.frame(Elevation, Depth, pH, Twater, Precip, Turbid, LakeArea)
+```
+
+
+
+## About Us
+<div class="columns-2">
+
+<b>Jack Foley</b>
+ORCID: 0000-0002-6370-2267
+jackfoley2020@gmail.com
+```{r, out.width = "110px", echo=FALSE}
+knitr::include_graphics("../../IMAGES/PNG/jack.png")
+```
+
+
+<b>Hunter Stent</b>
+ORCID: 0000-0001-5118-0409
+stenthunt@myvuw.ac.nz
+```{r, out.width = "120px", echo=FALSE}
+knitr::include_graphics("../../IMAGES/PNG/Hunter.png")
+```
+
+<b>Yiyang Chen / Christine</b>
+ORCID: 0000-0002-5211-1234
+chenyiya@myvuw.ac.nz
+```{r, out.width = "110px", echo=FALSE}
+knitr::include_graphics("../../IMAGES/PNG/Yiyang.png")
+```
+
+</div>
+
+
+## Tasmanian Lakes, an Overview
+- 62 variables measured across 50 Tasmanian lakes.
+
+- Reported in the Journal of Paleolimnology (2008).
+
+- Lakes vary by water quality and by their surrounding environment.
+
+- Important link to establishing lake restoration standards.
+
+
+
+
+
+## EDA: Multiple Density
+
+```{r Figure1,out.width = "650px",echo=FALSE}
+taslakes.df$Dolerite <- factor(taslakes.df$Dolerite)
+
+ggplot(taslakes.df, main= ,aes(x=pH, color=Dolerite, fill=Dolerite)) + 
+  geom_density(alpha=.7) + 
+  ggtitle("Multiple density plot unpacking the bimodal pH distribution by rock type")
+```
+
+- Lakes with Dolerite have higher mean pH than lakes without Dolerite
+
+## EDA: Scatterplot
+
+```{r Figure2,out.width = "650px",echo=FALSE}
+ggplot(taslakes.df, aes(x=pH, y=Elev, color=Dolerite)) +
+  geom_text(label=Lake) +
+  geom_smooth(formula = y ~ x, method = "lm", se = FALSE) +
+  geom_rug() +
+  ggtitle("Scatterplot Identifying Elevation as Another Variable Driving pH Variation")
+
+```
+
+- Justifies use of ANCOVA alongside non-parametric tests.
+
+## PCA: Importance
+
+54% of variance explained by Principal Component 1 and 2.
+
+```{r Figure3, Figure3,out.width = "550px"}
+PCA <- prcomp(df.stretch, center=TRUE, scale=TRUE)
+plot(PCA, type="l", main= "Cumulative Variance Explained by Principal Components")
+```
+
+```{r}
+knitr::kable(round(t(summary(PCA)$importance[3,]),2),
+             format="html", booktabs=TRUE, position = "!ht")%>%
+              kable_styling()%>%
+              column_spec(c(1,2),bold=T)
+```
+
+## PCA: Composition Breakdown
+
+PC1 is 'Elevation' + 'pH' - the rest.
+
+
+```{r PCA Summary,fig.cap= "Composition of PC1 and 2"}
+knitr::kable(round(PCA$rotation[,c(1:4)],2),
+             format="html", booktabs=TRUE, position = "h!")%>%
+              kable_styling()%>%
+              row_spec(c(1,3),bold=T,hline_after = T)
+```
+
+
+## Next Steps
+- Analyzing bimodal distributions holistically with factor analysis.
+
+- Investigating the nature of outliers.
